@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Registration System</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 850px; margin: 40px auto; padding: 0 16px; background: #f5f7fb; color: #202938; }
+        h1, h2 { color: #1f3a5f; }
+        form, .panel { background: white; padding: 20px; border-radius: 10px; margin-bottom: 24px; }
+        label { display: block; margin-top: 12px; }
+        input { box-sizing: border-box; width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccd3df; border-radius: 6px; }
+        button { margin-top: 16px; padding: 11px 18px; background: #2459a9; color: white; border: 0; border-radius: 6px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e1e6ef; overflow-wrap: anywhere; }
+        .success { color: #137333; } .error { color: #b3261e; }
+    </style>
+</head>
+<body>
+    <h1>Student Registration System</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p class="{{ category }}" role="status">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('register') }}">
+        <h2>Register a Student</h2>
+        <label for="name">Full name</label>
+        <input id="name" name="name" maxlength="100" required>
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" maxlength="255" required>
+
+        <label for="course">Course</label>
+        <input id="course" name="course" maxlength="100" required>
+
+        <button type="submit">Register Student</button>
+    </form>
+
+    <section class="panel">
+        <h2>Registered Students</h2>
+        {% if students %}
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>Email</th><th>Course</th></tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.course }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No students registered yet.</p>
+        {% endif %}
+    </section>
+</body>
+</html>
