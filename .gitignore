@@ -12,3 +12,6 @@ htmlcov/
 Thumbs.db
 .vscode/
 screenshots/
+
+# Private keys
+*.pem
